@@ -1,8 +1,7 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.29)
 project(demo)
 
 find_package(glfw3 REQUIRED)
-
 # lib_cef_dll_wrapper
 # set(CEF_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/lib/cef")
 # list(APPEND CMAKE_MODULE_PATH "${CEF_ROOT}/cmake")
@@ -10,7 +9,6 @@ find_package(glfw3 REQUIRED)
 # add_subdirectory(./lib/cef/libcef_dll)
 
 add_executable(demo)
-message(STATUS ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_sources(demo PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/application.cpp
@@ -18,13 +16,12 @@ target_sources(demo PRIVATE
 )
 
 # set(CEF_TARGET libcef_dll_wrapper)
-
 target_link_libraries(demo PUBLIC
-    # ${CEF_TARGET}
-    ${glfw3_LIBRARIES}
+    glfw
 )
+
 target_include_directories(demo PUBLIC
     # ${CEF_ROOT}
     ${CMAKE_CURRENT_SOURCE_DIR}/include
-    ${glfw3_INCLUDE_DIRS}
+    glfw
 )

@@ -37,10 +37,7 @@ void Application::loop()
 
 shared_ptr<Window> Application::createWindow(void (*draw)(shared_ptr<GLFWwindow> &_))
 {
-    shared_ptr<Window> w(new Window(draw), [](auto p)
-                         {
-        cout << "destruct window" << endl;
-        delete p; });
+    shared_ptr<Window> w = make_shared<Window>(draw);
     this->wins->push_back(w);
     return w;
 }
