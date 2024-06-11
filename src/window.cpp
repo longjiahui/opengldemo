@@ -3,10 +3,11 @@
 #include <iostream>
 
 using namespace huige;
+using namespace std;
 
-Window::Window(void (*draw)(std::shared_ptr<GLFWwindow> &_))
+Window::Window(void (*draw)(shared_ptr<GLFWwindow> &_))
 {
-    this->window = std::shared_ptr<GLFWwindow>(
+    this->window = shared_ptr<GLFWwindow>(
         glfwCreateWindow(
             800,
             600,
@@ -15,7 +16,7 @@ Window::Window(void (*draw)(std::shared_ptr<GLFWwindow> &_))
             nullptr),
         [](auto p)
         {
-            std::cout << "destruct glfwWindow" << std::endl;
+            cout << "destruct glfwWindow" << endl;
             glfwDestroyWindow(p);
         });
     this->draw = draw;

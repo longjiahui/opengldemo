@@ -2,6 +2,7 @@
 #include "stdlib.h"
 #include <iostream>
 using namespace huige;
+using namespace std;
 
 bool Application::isGLFWInit = false;
 
@@ -14,7 +15,7 @@ Application::Application()
         atexit([]()
                { glfwTerminate(); });
     }
-    this->wins = std::shared_ptr<std::vector<std::shared_ptr<Window>>>(new std::vector<std::shared_ptr<Window>>());
+    this->wins = make_shared<vector<shared_ptr<Window>>>();
 }
 
 void Application::loop()
@@ -34,19 +35,19 @@ void Application::loop()
     }
 }
 
-std::shared_ptr<Window> Application::createWindow(void (*draw)(std::shared_ptr<GLFWwindow> &_))
+shared_ptr<Window> Application::createWindow(void (*draw)(shared_ptr<GLFWwindow> &_))
 {
-    std::shared_ptr<Window> w(new Window(draw), [](auto p)
-                              {
-        std::cout << "destruct window" << std::endl;
+    shared_ptr<Window> w(new Window(draw), [](auto p)
+                         {
+        cout << "destruct window" << endl;
         delete p; });
     this->wins->push_back(w);
     return w;
 }
 
-std::shared_ptr<std::vector<std::shared_ptr<Window>>> Application::pendingWindow()
+shared_ptr<vector<shared_ptr<Window>>> Application::pendingWindow()
 {
-    auto pwins = std::shared_ptr<std::vector<std::shared_ptr<Window>>>(new std::vector<std::shared_ptr<Window>>());
+    auto pwins = make_shared<vector<shared_ptr<Window>>>();
     for (short i = 0; i < this->wins->size(); i++)
     {
         if (!glfwWindowShouldClose(this->wins->at(i)->window.get()))
