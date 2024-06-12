@@ -1,5 +1,8 @@
 #pragma once
 #include <string>
+#include <memory>
+#include <vector>
+#include <functional>
 #include "glfw.hpp"
 
 namespace huige

@@ -21,7 +21,7 @@ int main(void)
   huige::VAO vao;
   vao.init();
   shared_ptr<huige::VBO> vbo = vao.createVBO(make_shared<vector<float>>(
-      vector({-0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f})));
+      vector<float>({-0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f})));
   vao.useVBO(vbo, 3);
   win->draw = [&](auto win)
   { 
