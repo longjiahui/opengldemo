@@ -18,7 +18,7 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**",
+                "${workspaceFolder}/**/include",
                 "C:\\Users\\longj\\.conan2\\p\\**\\include"
             ],
             "defines": [
