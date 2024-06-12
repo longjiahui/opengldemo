@@ -7,6 +7,7 @@ using namespace huige;
 using namespace std;
 
 bool Application::isGLFWInit = false;
+bool Application::isGLEWInit = false;
 
 Application::Application()
 {
@@ -29,13 +30,6 @@ void Application::loop()
         {
             GLFWwindow *glfwWindow = w->window.get();
             glfwMakeContextCurrent(glfwWindow);
-            glewExperimental = GL_TRUE; 
-            GLenum err = glewInit();
-            if (err != GLEW_OK)
-            {
-                std::cerr << "Error: " << glewGetErrorString(err) << std::endl;
-                glfwTerminate();
-            }
             w->draw(w->window);
             glfwSwapBuffers(glfwWindow);
             glfwPollEvents();
@@ -44,9 +38,26 @@ void Application::loop()
     }
 }
 
+void initGlew()
+{
+    glewExperimental = GL_TRUE;
+    GLenum err = glewInit();
+    if (err != GLEW_OK)
+    {
+        std::cerr << "Error: " << glewGetErrorString(err) << std::endl;
+        glfwTerminate();
+    }
+}
+
 shared_ptr<Window> Application::createWindow(WindowDrawFunc draw)
 {
     shared_ptr<Window> w = make_shared<Window>(draw);
+    if (!Application::isGLEWInit)
+    {
+        Application::isGLEWInit = true;
+        glfwMakeContextCurrent(w->window.get());
+        initGlew();
+    }
     this->wins->push_back(w);
     return w;
 }

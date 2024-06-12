@@ -9,9 +9,9 @@ namespace huige
 {
     class Application
     {
-        static bool isGLFWInit;
-
     private:
+        static bool isGLFWInit;
+        static bool isGLEWInit;
         std::shared_ptr<std::vector<std::shared_ptr<Window>>> wins;
         std::shared_ptr<std::vector<std::shared_ptr<Window>>> pendingWindow();
 
