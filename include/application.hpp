@@ -3,7 +3,7 @@
 #include "window.hpp"
 #include <memory>
 #include <vector>
-#include <GLFW/glfw3.h>
+#include "glfw.hpp"
 
 namespace huige
 {
@@ -17,7 +17,7 @@ namespace huige
 
     public:
         Application();
-        std::shared_ptr<Window> createWindow(void (*draw)(std::shared_ptr<GLFWwindow> &_));
+        std::shared_ptr<Window> createWindow(WindowDrawFunc);
         void loop();
     };
 }

@@ -5,7 +5,7 @@
 using namespace huige;
 using namespace std;
 
-Window::Window(void (*draw)(shared_ptr<GLFWwindow> &_))
+Window::Window(WindowDrawFunc draw)
 {
     this->window = shared_ptr<GLFWwindow>(
         glfwCreateWindow(
@@ -19,5 +19,7 @@ Window::Window(void (*draw)(shared_ptr<GLFWwindow> &_))
             cout << "destruct glfwWindow" << endl;
             glfwDestroyWindow(p);
         });
+    glfwSetFramebufferSizeCallback(this->window.get(), [](auto window, auto width, auto height)
+                                   { glViewport(0, 0, width, height); });
     this->draw = draw;
 }

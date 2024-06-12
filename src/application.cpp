@@ -1,6 +1,8 @@
 #include "application.hpp"
 #include "stdlib.h"
 #include <iostream>
+#include <functional>
+#include <memory>
 using namespace huige;
 using namespace std;
 
@@ -27,6 +29,13 @@ void Application::loop()
         {
             GLFWwindow *glfwWindow = w->window.get();
             glfwMakeContextCurrent(glfwWindow);
+            glewExperimental = GL_TRUE; 
+            GLenum err = glewInit();
+            if (err != GLEW_OK)
+            {
+                std::cerr << "Error: " << glewGetErrorString(err) << std::endl;
+                glfwTerminate();
+            }
             w->draw(w->window);
             glfwSwapBuffers(glfwWindow);
             glfwPollEvents();
@@ -35,7 +44,7 @@ void Application::loop()
     }
 }
 
-shared_ptr<Window> Application::createWindow(void (*draw)(shared_ptr<GLFWwindow> &_))
+shared_ptr<Window> Application::createWindow(WindowDrawFunc draw)
 {
     shared_ptr<Window> w = make_shared<Window>(draw);
     this->wins->push_back(w);

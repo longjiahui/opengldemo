@@ -2,18 +2,21 @@
 
 // #include "cef.hpp"
 #include <memory>
-#include <GLFW/glfw3.h>
+#include <functional>
+#include "glfw.hpp"
 
 namespace huige
 {
+    typedef std::function<void(std::shared_ptr<GLFWwindow> &)> WindowDrawFunc;
     class Window
     {
     private:
         // std::shared_ptr<CEF> cef;
 
     public:
-        Window(void (*draw)(std::shared_ptr<GLFWwindow> &_));
-        void (*draw)(std::shared_ptr<GLFWwindow> &_);
+        Window(WindowDrawFunc);
+        WindowDrawFunc draw;
+        // void (*draw)(std::shared_ptr<GLFWwindow> &_);
         std::shared_ptr<GLFWwindow> window;
     };
 }
