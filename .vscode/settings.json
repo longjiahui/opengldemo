@@ -64,6 +64,7 @@
         "algorithm": "cpp",
         "memory": "cpp",
         "version": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "thread": "cpp"
     }
 }

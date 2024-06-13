@@ -3,6 +3,7 @@ project(demo)
 
 find_package(glfw3 REQUIRED)
 find_package(glew REQUIRED)
+find_package(stb REQUIRED)
 # lib_cef_dll_wrapper
 # set(CEF_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/lib/cef")
 # list(APPEND CMAKE_MODULE_PATH "${CEF_ROOT}/cmake")
@@ -28,4 +29,5 @@ target_include_directories(demo PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     glfw
     GLEW::GLEW
+    stb::stb
 )

@@ -17,6 +17,7 @@ namespace huige
 
     public:
         Application();
+        std::shared_ptr<Window> createWindow();
         std::shared_ptr<Window> createWindow(WindowDrawFunc);
         void loop();
     };
