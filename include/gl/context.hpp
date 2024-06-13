@@ -34,11 +34,10 @@ namespace huige
     {
     private:
         unsigned int instance;
-        VBO();
+        std::shared_ptr<std::vector<float>> vertices;
 
     public:
-        static std::shared_ptr<VBO> create(VAO const &, std::shared_ptr<std::vector<float>>);
-        std::shared_ptr<std::vector<float>> vertices;
+        VBO(std::shared_ptr<std::vector<float>>, GLenum usage = GL_STATIC_DRAW);
         /* 不允许拷贝构造和赋值构造，只允许转移 */
         VBO(VBO &&);
         VBO(VBO &) = delete;
@@ -46,7 +45,7 @@ namespace huige
         ~VBO();
 
         void use();
-        void init(std::shared_ptr<std::vector<float>> vertices, GLenum usage = GL_STATIC_DRAW);
+        // void init(std::shared_ptr<std::vector<float>> vertices);
     };
 
     /* Draw Context */
@@ -79,8 +78,7 @@ namespace huige
         VAO &operator=(VAO &) = delete;
         ~VAO();
 
-        void init();
-
+        void use();
         void use(VAOUseFunc) const;
 
         std::shared_ptr<VBO> createVBO(std::shared_ptr<std::vector<float>> vertices);

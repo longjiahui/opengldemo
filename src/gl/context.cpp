@@ -9,9 +9,6 @@ using namespace std;
 
 VAO::VAO()
 {
-}
-void VAO::init()
-{
     glGenVertexArrays(1, &(this->instance));
 }
 VAO::~VAO()
@@ -21,7 +18,11 @@ VAO::~VAO()
 
 shared_ptr<VBO> VAO::createVBO(shared_ptr<vector<float>> vertices)
 {
-    return VBO::create(*this, vertices);
+    return make_shared<VBO>(vertices);
+}
+void VAO::use()
+{
+    glBindVertexArray(this->instance);
 }
 void VAO::use(VAOUseFunc func) const
 {
@@ -45,29 +46,16 @@ void VAO::drawArray(shared_ptr<Program> program, GLsizei size, GLint offset, GLe
         glDrawArrays(mode, offset, size); });
 }
 
-VBO::VBO()
+VBO::VBO(std::shared_ptr<std::vector<float>> vertices, GLenum usage)
 {
     glGenBuffers(1, &this->instance);
-}
-shared_ptr<VBO> VBO::create(VAO const &vao, std::shared_ptr<std::vector<float>> vertices)
-{
-    // auto vbo = make_shared<VBO>();
-    shared_ptr<VBO> vbo = shared_ptr<VBO>(new VBO());
-    vao.use([&]()
-            { vbo->init(vertices); });
-    return vbo;
+    this->use();
+    glBufferData(GL_ARRAY_BUFFER, vertices->size() * sizeof(float), vertices->data(), GL_STATIC_DRAW);
 }
 
 void VBO::use()
 {
     glBindBuffer(GL_ARRAY_BUFFER, this->instance);
-}
-void VBO::init(shared_ptr<vector<float>> vertices, GLenum usage)
-{
-    glBindBuffer(GL_ARRAY_BUFFER, this->instance);
-    cout << "vertices size: " << vertices->size() * sizeof(float) << endl;
-    glBufferData(GL_ARRAY_BUFFER, vertices->size() * sizeof(float), vertices->data(), GL_STATIC_DRAW);
-    this->vertices = vertices;
 }
 
 VBO::~VBO()

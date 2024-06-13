@@ -23,3 +23,18 @@ Window::Window(WindowDrawFunc draw)
                                    { glViewport(0, 0, width, height); });
     this->draw = draw;
 }
+
+void Window::use()
+{
+    auto ctx = glfwGetCurrentContext();
+    if (ctx != this->window.get())
+    {
+        glfwMakeContextCurrent(this->window.get());
+    }
+}
+
+shared_ptr<VAO> Window::createVAO()
+{
+    this->use();
+    return make_shared<VAO>();
+}

@@ -4,6 +4,7 @@
 #include <memory>
 #include <functional>
 #include "glfw.hpp"
+#include "gl/context.hpp"
 
 namespace huige
 {
@@ -18,5 +19,8 @@ namespace huige
         WindowDrawFunc draw;
         // void (*draw)(std::shared_ptr<GLFWwindow> &_);
         std::shared_ptr<GLFWwindow> window;
+        void use();
+
+        std::shared_ptr<VAO> createVAO();
     };
 }

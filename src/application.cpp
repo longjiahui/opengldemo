@@ -29,7 +29,8 @@ void Application::loop()
         for (auto w : *pWins)
         {
             GLFWwindow *glfwWindow = w->window.get();
-            glfwMakeContextCurrent(glfwWindow);
+            // glfwMakeContextCurrent(glfwWindow);
+            w->use();
             w->draw(w->window);
             glfwSwapBuffers(glfwWindow);
             glfwPollEvents();
@@ -55,7 +56,7 @@ shared_ptr<Window> Application::createWindow(WindowDrawFunc draw)
     if (!Application::isGLEWInit)
     {
         Application::isGLEWInit = true;
-        glfwMakeContextCurrent(w->window.get());
+        w->use();
         initGlew();
     }
     this->wins->push_back(w);
