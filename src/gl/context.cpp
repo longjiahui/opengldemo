@@ -112,3 +112,30 @@ Program::~Program() {
 }
 
 void Program::use() { glUseProgram(this->program); }
+void Program::use(std::function<void()> callback) {
+  this->use();
+  callback();
+}
+GLint Program::getVariableLocation(const string name) {
+  return glGetAttribLocation(this->program, &name[0]);
+}
+GLint Program::getUniformLocation(const string name) {
+  return glGetUniformLocation(this->program, &name[0]);
+}
+void Program::setUniform(const std::string name, float x, float y, float z,
+                         float w) {
+  this->use();
+  glUniform4f(this->getUniformLocation(&name[0]), x, y, z, w);
+}
+void Program::setUniform(const std::string name, float x, float y, float z) {
+  this->use();
+  glUniform3f(this->getUniformLocation(&name[0]), x, y, z);
+}
+void Program::setUniform(const std::string name, float x, float y) {
+  this->use();
+  glUniform2f(this->getUniformLocation(&name[0]), x, y);
+}
+void Program::setUniform(const std::string name, float x) {
+  this->use();
+  glUniform1f(this->getUniformLocation(&name[0]), x);
+}

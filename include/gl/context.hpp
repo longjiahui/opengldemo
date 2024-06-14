@@ -1,88 +1,93 @@
 #pragma once
-#include <string>
-#include <memory>
-#include <vector>
-#include <functional>
 #include "glfw.hpp"
+#include <functional>
+#include <memory>
+#include <string>
+#include <vector>
 
-namespace huige
-{
-    class VAO;
-    class VBO;
+namespace huige {
+class VAO;
+class VBO;
 
-    class Program
-    {
-    private:
-        unsigned int program;
-        unsigned int vertexShader;
-        unsigned int fragmentShader;
-        std::string vertexSource;
-        std::string fragmentSource;
+class Program {
+private:
+  unsigned int program;
+  unsigned int vertexShader;
+  unsigned int fragmentShader;
+  std::string vertexSource;
+  std::string fragmentSource;
 
-    public:
-        Program(const char *, const char *);
+public:
+  Program(const char *, const char *);
 
-        /* 不允许拷贝构造和赋值构造，只允许转移 */
-        Program(Program &&);
-        Program(Program &) = delete;
-        Program &operator=(Program &) = delete;
-        ~Program();
+  /* 不允许拷贝构造和赋值构造，只允许转移 */
+  Program(Program &&);
+  Program(Program &) = delete;
+  Program &operator=(Program &) = delete;
+  ~Program();
 
-        void use();
-    };
-    class VBO
-    {
-    private:
-        unsigned int instance;
-        std::shared_ptr<std::vector<float>> vertices;
+  void use();
+  void use(std::function<void()>);
+  GLint getVariableLocation(const std::string);
+  GLint getUniformLocation(const std::string);
 
-    public:
-        VBO(std::shared_ptr<std::vector<float>>, GLenum usage = GL_STATIC_DRAW);
-        /* 不允许拷贝构造和赋值构造，只允许转移 */
-        VBO(VBO &&);
-        VBO(VBO &) = delete;
-        VBO &operator=(VBO &) = delete;
-        ~VBO();
+  void setUniform(const std::string, float, float, float, float);
+  void setUniform(const std::string, float, float, float);
+  void setUniform(const std::string, float, float);
+  void setUniform(const std::string, float);
+};
+class VBO {
+private:
+  unsigned int instance;
+  std::shared_ptr<std::vector<float>> vertices;
 
-        void use();
-        // void init(std::shared_ptr<std::vector<float>> vertices);
-    };
+public:
+  VBO(std::shared_ptr<std::vector<float>>, GLenum usage = GL_STATIC_DRAW);
+  /* 不允许拷贝构造和赋值构造，只允许转移 */
+  VBO(VBO &&);
+  VBO(VBO &) = delete;
+  VBO &operator=(VBO &) = delete;
+  ~VBO();
 
-    /* Draw Context */
-    // class GLDrawContext
-    // {
-    // private:
-    //     std::shared_ptr<GLContext> glContext;
-    //     std::shared_ptr<Program> program;
-    //     std::shared_ptr<GLVBO> VBO;
+  void use();
+  // void init(std::shared_ptr<std::vector<float>> vertices);
+};
 
-    // public:
-    //     GLDrawContext(GLContext, std::shared_ptr<Program>, std::shared_ptr<GLVBO>);
-    //     void draw();
-    // };
+/* Draw Context */
+// class GLDrawContext
+// {
+// private:
+//     std::shared_ptr<GLContext> glContext;
+//     std::shared_ptr<Program> program;
+//     std::shared_ptr<GLVBO> VBO;
 
-    /* A VAO */
-    typedef std::function<void()> VAOUseFunc;
+// public:
+//     GLDrawContext(GLContext, std::shared_ptr<Program>,
+//     std::shared_ptr<GLVBO>); void draw();
+// };
 
-    class VAO
-    {
-    private:
-        unsigned int instance;
+/* A VAO */
+typedef std::function<void()> VAOUseFunc;
 
-    public:
-        VAO();
+class VAO {
+private:
+  unsigned int instance;
 
-        /* 不允许拷贝构造和赋值构造，只允许转移 */
-        VAO(VAO &&);
-        VAO(VAO &) = delete;
-        VAO &operator=(VAO &) = delete;
-        ~VAO();
+public:
+  VAO();
 
-        void use();
-        void use(VAOUseFunc) const;
+  /* 不允许拷贝构造和赋值构造，只允许转移 */
+  VAO(VAO &&);
+  VAO(VAO &) = delete;
+  VAO &operator=(VAO &) = delete;
+  ~VAO();
 
-        std::shared_ptr<VBO> createVBO(std::shared_ptr<std::vector<float>> vertices);
-        void useVBO(std::shared_ptr<VBO> vbo, GLint interval, GLint index = 0);
-        void drawArray(std::shared_ptr<Program>, GLsizei, GLint = 0, GLenum = GL_TRIANGLES);
-    };
-}
+  void use();
+  void use(VAOUseFunc) const;
+
+  std::shared_ptr<VBO> createVBO(std::shared_ptr<std::vector<float>> vertices);
+  void useVBO(std::shared_ptr<VBO> vbo, GLint interval, GLint index = 0);
+  void drawArray(std::shared_ptr<Program>, GLsizei, GLint = 0,
+                 GLenum = GL_TRIANGLES);
+};
+} // namespace huige
