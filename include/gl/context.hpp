@@ -9,6 +9,13 @@ namespace huige {
 class VAO;
 class VBO;
 
+typedef struct {
+  GLint index;
+  GLint offset;
+  GLint length;
+  GLint step;
+} VBOUsage;
+
 class Program {
 private:
   unsigned int program;
@@ -49,7 +56,7 @@ public:
   VBO &operator=(VBO &) = delete;
   ~VBO();
 
-  void use();
+  void use() const;
   // void init(std::shared_ptr<std::vector<float>> vertices);
 };
 
@@ -86,7 +93,8 @@ public:
   void use(VAOUseFunc) const;
 
   std::shared_ptr<VBO> createVBO(std::shared_ptr<std::vector<float>> vertices);
-  void useVBO(std::shared_ptr<VBO> vbo, GLint interval, GLint index = 0);
+
+  void useVBO(const VBO &vbo, const std::vector<VBOUsage>);
   void drawArray(std::shared_ptr<Program>, GLsizei, GLint = 0,
                  GLenum = GL_TRIANGLES);
 };

@@ -18,15 +18,32 @@ void VAO::use(VAOUseFunc func) const {
   glBindVertexArray(this->instance);
   func();
 }
-
-void VAO::useVBO(shared_ptr<VBO> vbo, GLint interval, GLint index) {
-  this->use(([&]() {
-    vbo->use();
-    glVertexAttribPointer(index, interval, GL_FLOAT, GL_FALSE,
-                          interval * sizeof(float), nullptr);
-    glEnableVertexAttribArray(index);
-  }));
+void VAO::useVBO(const VBO &vbo, const std::vector<VBOUsage> usages) {
+  GLint totalLength = 0;
+  for (auto usage : usages) {
+    totalLength += usage.length;
+  }
+  this->use([&vbo, &usages, &totalLength]() {
+    vbo.use();
+    for (auto usage : usages) {
+      cout << usage.index << " " << usage.length << " " << totalLength << " "
+           << usage.offset << endl;
+      glVertexAttribPointer(usage.index, usage.length, GL_FLOAT, GL_FALSE,
+                            totalLength * sizeof(float),
+                            (void *)(usage.offset * sizeof(float)));
+      glEnableVertexAttribArray(usage.index);
+    }
+  });
 }
+
+// void VAO::useVBO(const VBO &vbo, GLint interval, GLint index) {
+//   this->use(([&]() {
+//     vbo.use();
+//     glVertexAttribPointer(index, interval, GL_FLOAT, GL_FALSE,
+//                           interval * sizeof(float), nullptr);
+//     glEnableVertexAttribArray(index);
+//   }));
+// }
 
 void VAO::drawArray(shared_ptr<Program> program, GLsizei size, GLint offset,
                     GLenum mode) {
@@ -43,7 +60,7 @@ VBO::VBO(std::shared_ptr<std::vector<float>> vertices, GLenum usage) {
                vertices->data(), GL_STATIC_DRAW);
 }
 
-void VBO::use() { glBindBuffer(GL_ARRAY_BUFFER, this->instance); }
+void VBO::use() const { glBindBuffer(GL_ARRAY_BUFFER, this->instance); }
 
 VBO::~VBO() { glDeleteBuffers(1, &this->instance); }
 

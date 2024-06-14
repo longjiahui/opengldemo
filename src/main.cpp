@@ -22,7 +22,11 @@ int main(void) {
   shared_ptr<huige::VBO> vbo =
       vao->createVBO(make_shared<vector<float>>(vector<float>(
           {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f})));
-  vao->useVBO(vbo, 3, program->getVariableLocation("aPos"));
+  vao->useVBO(*vbo, {{
+                        program->getVariableLocation("aPos"),
+                        0,
+                        3,
+                    }});
   win->setDraw([&](auto win) {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
