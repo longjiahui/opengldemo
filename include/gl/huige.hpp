@@ -98,4 +98,25 @@ public:
   void drawArray(std::shared_ptr<Program>, GLsizei, GLint = 0,
                  GLenum = GL_TRIANGLES);
 };
+
+class Image {
+private:
+  unsigned char *data;
+  unsigned int width;
+  unsigned int height;
+  void setImage(const char *data, unsigned int width, unsigned int height);
+
+public:
+  Image();
+  Image(unsigned char *path);
+  Image(unsigned char *data, unsigned int width, unsigned int height);
+
+  /* 不允许拷贝构造和赋值构造，只允许转移 */
+  Image(Image &&);
+  Image(Image &) = delete;
+  Image &operator=(Image &) = delete;
+
+  ~Image();
+};
+
 } // namespace huige

@@ -7,9 +7,9 @@
 #include <stdlib.h>
 #include <vector>
 
-#include "application.hpp"
-#include "gl/context.hpp"
-#include "window.hpp"
+#include "gl/huige.hpp"
+#include "win/application.hpp"
+#include "win/window.hpp"
 
 using namespace std;
 

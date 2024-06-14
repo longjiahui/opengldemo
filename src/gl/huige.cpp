@@ -1,4 +1,4 @@
-#include "gl/context.hpp"
+#include "gl/huige.hpp"
 #include <GLFW/glfw3.h>
 #include <fstream>
 #include <iostream>
@@ -26,8 +26,6 @@ void VAO::useVBO(const VBO &vbo, const std::vector<VBOUsage> usages) {
   this->use([&vbo, &usages, &totalLength]() {
     vbo.use();
     for (auto usage : usages) {
-      cout << usage.index << " " << usage.length << " " << totalLength << " "
-           << usage.offset << endl;
       glVertexAttribPointer(usage.index, usage.length, GL_FLOAT, GL_FALSE,
                             totalLength * sizeof(float),
                             (void *)(usage.offset * sizeof(float)));
@@ -35,15 +33,6 @@ void VAO::useVBO(const VBO &vbo, const std::vector<VBOUsage> usages) {
     }
   });
 }
-
-// void VAO::useVBO(const VBO &vbo, GLint interval, GLint index) {
-//   this->use(([&]() {
-//     vbo.use();
-//     glVertexAttribPointer(index, interval, GL_FLOAT, GL_FALSE,
-//                           interval * sizeof(float), nullptr);
-//     glEnableVertexAttribArray(index);
-//   }));
-// }
 
 void VAO::drawArray(shared_ptr<Program> program, GLsizei size, GLint offset,
                     GLenum mode) {

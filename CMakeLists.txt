@@ -13,9 +13,9 @@ find_package(stb REQUIRED)
 add_executable(demo)
 target_sources(demo PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/application.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/window.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/context.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/win/application.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/win/window.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/huige.cpp
 )
 
 # set(CEF_TARGET libcef_dll_wrapper)
