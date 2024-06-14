@@ -94,7 +94,7 @@ public:
 
   std::shared_ptr<VBO> createVBO(std::shared_ptr<std::vector<float>> vertices);
 
-  void useVBO(const VBO &vbo, const std::vector<VBOUsage>);
+  void useVBO(const VBO &vbo, const std::vector<VBOUsage> &);
   void drawArray(std::shared_ptr<Program>, GLsizei, GLint = 0,
                  GLenum = GL_TRIANGLES);
 };
@@ -104,7 +104,7 @@ private:
   unsigned char *data;
   unsigned int width;
   unsigned int height;
-  void setImage(const char *data, unsigned int width, unsigned int height);
+  void setImage(unsigned char *, const unsigned int &, const unsigned int &);
 
 public:
   Image();

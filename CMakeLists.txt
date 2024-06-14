@@ -16,6 +16,7 @@ target_sources(demo PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/win/application.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/win/window.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/huige.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/util.cpp
 )
 
 # set(CEF_TARGET libcef_dll_wrapper)
@@ -32,5 +33,7 @@ target_include_directories(demo PUBLIC
     ${stb_INCLUDE_DIRS}
 )
 
-configure_file("glsl/frag.glsl" ${CMAKE_BINARY_DIR}/frag.glsl COPYONLY)
-configure_file("glsl/vertex.glsl" ${CMAKE_BINARY_DIR}/vertex.glsl COPYONLY)
+set(glsl_dir_name glsl)
+file(REMOVE ${CMAKE_BINARY_DIR}/${glsl_dir_name})
+file(COPY ${glsl_dir_name} DESTINATION ${CMAKE_BINARY_DIR})
+# configure_file("glsl/vertex.glsl" ${CMAKE_BINARY_DIR}/vertex.glsl COPYONLY)

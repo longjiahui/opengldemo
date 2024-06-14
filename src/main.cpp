@@ -17,7 +17,7 @@ int main(void) {
   huige::Application application;
   auto win = application.createWindow();
   shared_ptr<huige::Program> program =
-      make_shared<huige::Program>("vertex.glsl", "frag.glsl");
+      make_shared<huige::Program>("glsl/vertex.glsl", "glsl/frag.glsl");
   auto vao = win->createVAO();
   shared_ptr<huige::VBO> vbo =
       vao->createVBO(make_shared<vector<float>>(vector<float>(

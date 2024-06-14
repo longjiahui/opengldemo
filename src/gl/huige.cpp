@@ -1,4 +1,5 @@
 #include "gl/huige.hpp"
+#include "util.hpp"
 #include <GLFW/glfw3.h>
 #include <fstream>
 #include <iostream>
@@ -18,7 +19,7 @@ void VAO::use(VAOUseFunc func) const {
   glBindVertexArray(this->instance);
   func();
 }
-void VAO::useVBO(const VBO &vbo, const std::vector<VBOUsage> usages) {
+void VAO::useVBO(const VBO &vbo, const std::vector<VBOUsage> &usages) {
   GLint totalLength = 0;
   for (auto usage : usages) {
     totalLength += usage.length;
@@ -67,14 +68,8 @@ Program::Program(Program &&program) {
 }
 
 Program::Program(const char *vertexPath, const char *fragmentPath) {
-  ifstream vertexFile(vertexPath, ios_base::in);
-  this->vertexSource = string(istreambuf_iterator<char>(vertexFile),
-                              istreambuf_iterator<char>());
-  vertexFile.close();
-  ifstream fragmentfile(fragmentPath, ios_base::in);
-  this->fragmentSource = string(istreambuf_iterator<char>(fragmentfile),
-                                istreambuf_iterator<char>());
-  fragmentfile.close();
+  this->vertexSource = huige::readFile(vertexPath);
+  this->fragmentSource = huige::readFile(fragmentPath);
 
   this->vertexShader = glCreateShader(GL_VERTEX_SHADER);
   this->fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -145,3 +140,14 @@ void Program::setUniform(const std::string name, float x) {
   this->use();
   glUniform1f(this->getUniformLocation(&name[0]), x);
 }
+
+void Image::setImage(unsigned char *data, const unsigned int &width,
+                     const unsigned int &height) {
+  this->data = data;
+  this->width = width;
+  this->height = height;
+}
+
+Image::Image() {}
+Image::Image(unsigned char *path) {}
+Image::Image(unsigned char *data, unsigned int width, unsigned int height) {}
