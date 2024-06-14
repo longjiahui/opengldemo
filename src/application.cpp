@@ -14,6 +14,10 @@ Application::Application() {
   if (!Application::isGLFWInit) {
     Application::isGLFWInit = true;
     glfwInit();
+    // glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     atexit([]() { glfwTerminate(); });
   }
   this->wins = make_shared<vector<shared_ptr<Window>>>();
@@ -38,6 +42,9 @@ void initGlew() {
     std::cerr << "Error: " << glewGetErrorString(err) << std::endl;
     glfwTerminate();
   }
+  cout << "current openGL Version: " << glGetString(GL_VERSION) << endl;
+  cout << "current GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION)
+       << endl;
 }
 
 shared_ptr<Window> Application::createWindow() {

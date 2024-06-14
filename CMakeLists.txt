@@ -29,5 +29,8 @@ target_include_directories(demo PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     glfw
     GLEW::GLEW
-    stb::stb
+    ${stb_INCLUDE_DIRS}
 )
+
+configure_file("glsl/frag.glsl" ${CMAKE_BINARY_DIR}/frag.glsl COPYONLY)
+configure_file("glsl/vertex.glsl" ${CMAKE_BINARY_DIR}/vertex.glsl COPYONLY)
