@@ -3,7 +3,7 @@
 #include "window.hpp"
 #include <memory>
 #include <vector>
-#include "glfw.hpp"
+#include "lib/glfw.hpp"
 
 namespace huige
 {

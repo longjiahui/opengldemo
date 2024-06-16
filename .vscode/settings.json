@@ -65,6 +65,8 @@
         "memory": "cpp",
         "version": "cpp",
         "functional": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "stop_token": "cpp",
+        "xhash": "cpp"
     }
 }

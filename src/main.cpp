@@ -1,5 +1,4 @@
-#include "glfw.hpp"
-#include <stb_image.h>
+#include "lib/glfw.hpp"
 
 #include <iostream>
 #include <stddef.h>

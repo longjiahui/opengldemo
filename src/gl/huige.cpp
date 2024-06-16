@@ -1,6 +1,8 @@
 #include "gl/huige.hpp"
+#include "lib/glfw.hpp"
+#include "lib/stb_image.hpp"
 #include "util.hpp"
-#include <GLFW/glfw3.h>
+
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -148,6 +150,40 @@ void Image::setImage(unsigned char *data, const unsigned int &width,
   this->height = height;
 }
 
-Image::Image() {}
-Image::Image(unsigned char *path) {}
-Image::Image(unsigned char *data, unsigned int width, unsigned int height) {}
+shared_ptr<Image> Image::load(const char *path) {
+  int width, height, channels;
+  return make_shared<Image>(stbi_load(path, &width, &height, &channels, 0), width, height);
+}
+
+Image::Image(unsigned char *data, unsigned int width, unsigned int height) {
+  this->setImage(data, width, height);
+}
+
+Image::Image(Image && image)
+{
+  this->data = image.data;
+  this->width = image.width;
+  this->height = image.height;
+  image.data = nullptr;
+  image.width = NULL;
+  image.height = NULL;
+}
+
+Image::~Image(){
+  stbi_image_free(this->data);
+}
+
+void Texture::use(){
+  glBindTexture(GL_TEXTURE_2D, this->instance);
+}
+
+Texture::Texture(const Image &image){
+  glGenTextures(1, &this->instance);
+  this->use();
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.width, image.height, 0, GL_RGB, GL_UNSIGNED_BYTE, image.data);
+  glGenerateMipmap(GL_TEXTURE_2D);
+}
+
+Texture::~Texture(){
+  glDeleteTextures(1, &this->instance);
+}

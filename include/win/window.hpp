@@ -2,7 +2,8 @@
 
 // #include "cef.hpp"
 #include "gl/huige.hpp"
-#include "glfw.hpp"
+#include "lib/glfw.hpp"
+
 #include <functional>
 #include <memory>
 

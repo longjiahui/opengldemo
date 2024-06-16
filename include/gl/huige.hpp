@@ -1,5 +1,7 @@
 #pragma once
-#include "glfw.hpp"
+
+#include "lib/glfw.hpp"
+
 #include <functional>
 #include <memory>
 #include <string>
@@ -101,14 +103,14 @@ public:
 
 class Image {
 private:
-  unsigned char *data;
-  unsigned int width;
-  unsigned int height;
   void setImage(unsigned char *, const unsigned int &, const unsigned int &);
 
 public:
+  unsigned char *data;
+  unsigned int width;
+  unsigned int height;
+  static std::shared_ptr<Image> load(const char *);
   Image();
-  Image(unsigned char *path);
   Image(unsigned char *data, unsigned int width, unsigned int height);
 
   /* 不允许拷贝构造和赋值构造，只允许转移 */
@@ -117,6 +119,20 @@ public:
   Image &operator=(Image &) = delete;
 
   ~Image();
+};
+
+class Texture {
+public:
+  Texture(const Image &);
+  ~Texture();
+  void use();
+
+  /* 不允许拷贝构造、赋值、转移 */
+  Texture(Texture &&) = delete;
+  Texture(Texture &) = delete;
+  Texture &operator=(Texture &) = delete;
+private:
+  unsigned int instance;
 };
 
 } // namespace huige
