@@ -4,7 +4,7 @@
 #include <iostream>
 #include <memory>
 #include <thread>
-using namespace huige;
+using namespace huigl;
 using namespace std;
 
 bool Application::isGLFWInit = false;

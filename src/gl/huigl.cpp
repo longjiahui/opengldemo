@@ -1,4 +1,4 @@
-#include "gl/huige.hpp"
+#include "gl/huigl.hpp"
 #include "lib/glfw.hpp"
 #include "lib/stb_image.hpp"
 #include "util.hpp"
@@ -7,7 +7,7 @@
 #include <iostream>
 #include <string>
 
-using namespace huige;
+using namespace huigl;
 using namespace std;
 
 VAO::VAO() { glGenVertexArrays(1, &(this->instance)); }
@@ -70,8 +70,8 @@ Program::Program(Program &&program) {
 }
 
 Program::Program(const char *vertexPath, const char *fragmentPath) {
-  this->vertexSource = huige::readFile(vertexPath);
-  this->fragmentSource = huige::readFile(fragmentPath);
+  this->vertexSource = huigl::readFile(vertexPath);
+  this->fragmentSource = huigl::readFile(fragmentPath);
 
   this->vertexShader = glCreateShader(GL_VERTEX_SHADER);
   this->fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -152,38 +152,33 @@ void Image::setImage(unsigned char *data, const unsigned int &width,
 
 shared_ptr<Image> Image::load(const char *path) {
   int width, height, channels;
-  return make_shared<Image>(stbi_load(path, &width, &height, &channels, 0), width, height);
+  return make_shared<Image>(stbi_load(path, &width, &height, &channels, 0),
+                            width, height);
 }
 
 Image::Image(unsigned char *data, unsigned int width, unsigned int height) {
   this->setImage(data, width, height);
 }
 
-Image::Image(Image && image)
-{
+Image::Image(Image &&image) {
   this->data = image.data;
   this->width = image.width;
   this->height = image.height;
   image.data = nullptr;
-  image.width = NULL;
-  image.height = NULL;
+  image.width = 0;
+  image.height = 0;
 }
 
-Image::~Image(){
-  stbi_image_free(this->data);
-}
+Image::~Image() { stbi_image_free(this->data); }
 
-void Texture::use(){
-  glBindTexture(GL_TEXTURE_2D, this->instance);
-}
+void Texture::use() { glBindTexture(GL_TEXTURE_2D, this->instance); }
 
-Texture::Texture(const Image &image){
+Texture::Texture(const Image &image) {
   glGenTextures(1, &this->instance);
   this->use();
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.width, image.height, 0, GL_RGB, GL_UNSIGNED_BYTE, image.data);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.width, image.height, 0, GL_RGB,
+               GL_UNSIGNED_BYTE, image.data);
   glGenerateMipmap(GL_TEXTURE_2D);
 }
 
-Texture::~Texture(){
-  glDeleteTextures(1, &this->instance);
-}
+Texture::~Texture() { glDeleteTextures(1, &this->instance); }

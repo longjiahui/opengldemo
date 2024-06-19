@@ -1,13 +1,13 @@
 #pragma once
 
 // #include "cef.hpp"
-#include "gl/huige.hpp"
+#include "gl/huigl.hpp"
 #include "lib/glfw.hpp"
 
 #include <functional>
 #include <memory>
 
-namespace huige {
+namespace huigl {
 typedef std::function<void(std::shared_ptr<GLFWwindow>)> WindowDrawFunc;
 class Window {
 private:
@@ -26,4 +26,4 @@ public:
 
   std::shared_ptr<VAO> createVAO();
 };
-} // namespace huige
+} // namespace huigl

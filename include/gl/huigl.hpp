@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-namespace huige {
+namespace huigl {
 class VAO;
 class VBO;
 
@@ -131,8 +131,9 @@ public:
   Texture(Texture &&) = delete;
   Texture(Texture &) = delete;
   Texture &operator=(Texture &) = delete;
+
 private:
   unsigned int instance;
 };
 
-} // namespace huige
+} // namespace huigl

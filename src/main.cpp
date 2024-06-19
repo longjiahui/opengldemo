@@ -6,19 +6,19 @@
 #include <stdlib.h>
 #include <vector>
 
-#include "gl/huige.hpp"
+#include "gl/huigl.hpp"
 #include "win/application.hpp"
 #include "win/window.hpp"
 
 using namespace std;
 
 int main(void) {
-  huige::Application application;
+  huigl::Application application;
   auto win = application.createWindow();
-  shared_ptr<huige::Program> program =
-      make_shared<huige::Program>("glsl/vertex.glsl", "glsl/frag.glsl");
+  shared_ptr<huigl::Program> program =
+      make_shared<huigl::Program>("glsl/vertex.glsl", "glsl/frag.glsl");
   auto vao = win->createVAO();
-  shared_ptr<huige::VBO> vbo =
+  shared_ptr<huigl::VBO> vbo =
       vao->createVBO(make_shared<vector<float>>(vector<float>(
           {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f})));
   vao->useVBO(*vbo, {{

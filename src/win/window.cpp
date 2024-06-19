@@ -2,7 +2,7 @@
 #include <iostream>
 #include <memory>
 
-using namespace huige;
+using namespace huigl;
 using namespace std;
 
 void Window::_init() {

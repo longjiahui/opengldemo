@@ -1,5 +1,5 @@
 #include <string>
 
-namespace huige {
+namespace huigl {
 std::string readFile(const char *);
 }

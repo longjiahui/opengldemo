@@ -15,7 +15,7 @@ target_sources(demo PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/win/application.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/win/window.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/huige.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/huigl.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/util.cpp
 )
 
