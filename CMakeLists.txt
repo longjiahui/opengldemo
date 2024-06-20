@@ -4,6 +4,8 @@ project(demo)
 find_package(glfw3 REQUIRED)
 find_package(glew REQUIRED)
 find_package(stb REQUIRED)
+find_package(glm REQUIRED)
+find_package(assimp REQUIRED)
 # lib_cef_dll_wrapper
 # set(CEF_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/lib/cef")
 # list(APPEND CMAKE_MODULE_PATH "${CEF_ROOT}/cmake")
@@ -15,7 +17,13 @@ target_sources(demo PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/win/application.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/win/window.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/huigl.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/glbase.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/mesh.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/program.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/pipeline.cpp
+    # ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/huigl.cpp
+    
     ${CMAKE_CURRENT_SOURCE_DIR}/src/util.cpp
 )
 
@@ -23,6 +31,7 @@ target_sources(demo PRIVATE
 target_link_libraries(demo PUBLIC
     glfw
     GLEW::GLEW
+    assimp::assimp
 )
 
 target_include_directories(demo PUBLIC
@@ -31,6 +40,8 @@ target_include_directories(demo PUBLIC
     glfw
     GLEW::GLEW
     ${stb_INCLUDE_DIRS}
+    ${glm_INCLUDE_DIRS}
+    assimp::assimp
 )
 
 set(glsl_dir_name glsl)

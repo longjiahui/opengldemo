@@ -67,6 +67,7 @@
         "functional": "cpp",
         "thread": "cpp",
         "stop_token": "cpp",
-        "xhash": "cpp"
+        "xhash": "cpp",
+        "unordered_set": "cpp"
     }
 }

@@ -11,5 +11,5 @@ void main()
     float r = (sin(time + pi / 4) + 1 )/ 2;
     float g = (sin((time + pi / 2) * 3) + 1 )/ 2;
     float b = (sin((time + pi / 4 * 3) * 2) + 1 )/ 2;
-    FragColor = vec4(position.xyz + vec3(r, g, b), 1.0f);
+    FragColor = vec4(normalize(position.xyz) * 0.5f + vec3(r, g, b) * 0.5f, 1.0f);
 }
