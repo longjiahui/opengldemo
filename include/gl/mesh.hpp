@@ -12,13 +12,14 @@ class Mesh {
 private:
   std::shared_ptr<VBO> vbo;
   std::shared_ptr<EBO> ebo;
-  std::vector<glm::vec3> vertices;
+  std::vector<std::vector<float>> vertices;
   std::vector<unsigned int> indices;
 
 public:
   static std::shared_ptr<Mesh> fromFile(const char *p);
 
-  Mesh(std::vector<glm::vec3> vertices, std::vector<unsigned int> indices)
+  Mesh(std::vector<std::vector<float>> vertices,
+       std::vector<unsigned int> indices = std::vector<unsigned int>())
       : vertices(vertices), indices(indices) {}
   //   std::vector<glm::vec3> normals;
   std::vector<float> toBuffer() const;

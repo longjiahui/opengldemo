@@ -22,6 +22,8 @@ target_sources(demo PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/mesh.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/program.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/pipeline.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/image.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/texture.cpp
     # ${CMAKE_CURRENT_SOURCE_DIR}/src/gl/huigl.cpp
     
     ${CMAKE_CURRENT_SOURCE_DIR}/src/util.cpp
@@ -44,7 +46,10 @@ target_include_directories(demo PUBLIC
     assimp::assimp
 )
 
-set(glsl_dir_name glsl)
-file(REMOVE ${CMAKE_BINARY_DIR}/${glsl_dir_name})
-file(COPY ${glsl_dir_name} DESTINATION ${CMAKE_BINARY_DIR})
+list(APPEND move_dirs glsl image)
+foreach(dir IN LISTS move_dirs)
+    file(REMOVE ${CMAKE_BINARY_DIR}/${dir})
+    file(COPY ${dir} DESTINATION ${CMAKE_BINARY_DIR})
+endforeach()
+
 # configure_file("glsl/vertex.glsl" ${CMAKE_BINARY_DIR}/vertex.glsl COPYONLY)

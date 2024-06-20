@@ -22,35 +22,55 @@ int main(void) {
   auto transformMatrix =
       glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, -1.0f, 0));
   auto p = new huigl::Pipeline("glsl/vertex.glsl", "glsl/frag.glsl");
-  auto mesh =
-      huigl::Mesh(vector<glm::vec3>({
-                      {-0.5f, 0.5f, -4.0f},
-                      {0.5f, 0.5f, -4.0f},
-                      {0.5f, -0.5f, -4.0f},
-                      {-0.5f, -0.5f, -4.0f},
+  auto texture = huigl::Texture::fromFile("image/image.jpg");
+  p->setTexture(0, "texture1", *texture);
+  auto mesh = huigl::Mesh(vector<vector<float>>(
+      {{-0.5f, -0.5f, -0.5f, 0.0f, 0.0f}, {0.5f, -0.5f, -0.5f, 1.0f, 0.0f},
+       {0.5f, 0.5f, -0.5f, 1.0f, 1.0f},   {0.5f, 0.5f, -0.5f, 1.0f, 1.0f},
+       {-0.5f, 0.5f, -0.5f, 0.0f, 1.0f},  {-0.5f, -0.5f, -0.5f, 0.0f, 0.0f},
 
-                      {-0.5f, 0.5f, -10.0f},
-                      {0.5f, 0.5f, -10.0f},
-                      {0.5f, -0.5f, -10.0f},
-                      {-0.5f, -0.5f, -10.0f},
-                  }),
-                  vector<unsigned int>({0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7,
-                                        0, 1, 5, 0, 5, 4, 3, 2, 6, 3, 6, 7,
-                                        1, 2, 6, 1, 6, 5, 0, 3, 7, 0, 7, 4}));
-  p->useMesh(mesh);
+       {-0.5f, -0.5f, 0.5f, 0.0f, 0.0f},  {0.5f, -0.5f, 0.5f, 1.0f, 0.0f},
+       {0.5f, 0.5f, 0.5f, 1.0f, 1.0f},    {0.5f, 0.5f, 0.5f, 1.0f, 1.0f},
+       {-0.5f, 0.5f, 0.5f, 0.0f, 1.0f},   {-0.5f, -0.5f, 0.5f, 0.0f, 0.0f},
+
+       {-0.5f, 0.5f, 0.5f, 1.0f, 0.0f},   {-0.5f, 0.5f, -0.5f, 1.0f, 1.0f},
+       {-0.5f, -0.5f, -0.5f, 0.0f, 1.0f}, {-0.5f, -0.5f, -0.5f, 0.0f, 1.0f},
+       {-0.5f, -0.5f, 0.5f, 0.0f, 0.0f},  {-0.5f, 0.5f, 0.5f, 1.0f, 0.0f},
+
+       {0.5f, 0.5f, 0.5f, 1.0f, 0.0f},    {0.5f, 0.5f, -0.5f, 1.0f, 1.0f},
+       {0.5f, -0.5f, -0.5f, 0.0f, 1.0f},  {0.5f, -0.5f, -0.5f, 0.0f, 1.0f},
+       {0.5f, -0.5f, 0.5f, 0.0f, 0.0f},   {0.5f, 0.5f, 0.5f, 1.0f, 0.0f},
+
+       {-0.5f, -0.5f, -0.5f, 0.0f, 1.0f}, {0.5f, -0.5f, -0.5f, 1.0f, 1.0f},
+       {0.5f, -0.5f, 0.5f, 1.0f, 0.0f},   {0.5f, -0.5f, 0.5f, 1.0f, 0.0f},
+       {-0.5f, -0.5f, 0.5f, 0.0f, 0.0f},  {-0.5f, -0.5f, -0.5f, 0.0f, 1.0f},
+
+       {-0.5f, 0.5f, -0.5f, 0.0f, 1.0f},  {0.5f, 0.5f, -0.5f, 1.0f, 1.0f},
+       {0.5f, 0.5f, 0.5f, 1.0f, 0.0f},    {0.5f, 0.5f, 0.5f, 1.0f, 0.0f},
+       {-0.5f, 0.5f, 0.5f, 0.0f, 0.0f},   {-0.5f, 0.5f, -0.5f, 0.0f, 1.0f}}));
+  // vector<unsigned int>({0,  1,  2,  2,  3,  0,  4,  5,  6,  6,  7,  4,
+  //                       8,  9,  10, 10, 11, 8,  12, 13, 14, 14, 15, 12,
+  //                       16, 17, 18, 18, 19, 16, 20, 21, 22, 22, 23, 20}));
+  p->useMesh(mesh, vector<huigl::VBOUsage>(
+                       {{"vertexPosition", 0, 3}, {"textureCoord", 3, 2}}));
   win->setResize(
       [&](auto, auto w, auto h) {
         p->setUniform("projection",
-                      glm::perspective(glm::radians(45.0f),
-                                       (float)(w) / float(h), 0.1f, 100.0f));
+                      glm::translate(glm::perspective(glm::radians(45.0f),
+                                                      (float)(w) / float(h),
+                                                      0.1f, 100.0f),
+                                     glm::vec3(0.3f, 0.3f, -4.0f)));
       },
       true);
-  p->setUniform("transform", transformMatrix);
   win->setDraw([&](auto win) {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     p->setUniform("time", glfwGetTime());
-    p->draw();
+    p->setUniform(
+        "transform",
+        glm::translate(transformMatrix,
+                       glm::vec3(glm::sin(glfwGetTime()) * 1.0f, 0.0f, 0.0f)));
+    p->drawArrays(36);
   });
   application.loop();
   return 0;

@@ -13,7 +13,7 @@ typedef struct {
   std::string name;
   GLint offset;
   GLint length;
-  GLint step;
+  // GLint step;
 } VBOUsage;
 
 class VBO {

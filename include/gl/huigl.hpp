@@ -101,39 +101,4 @@ public:
                  GLenum = GL_TRIANGLES);
 };
 
-class Image {
-private:
-  void setImage(unsigned char *, const unsigned int &, const unsigned int &);
-
-public:
-  unsigned char *data;
-  unsigned int width;
-  unsigned int height;
-  static std::shared_ptr<Image> load(const char *);
-  Image();
-  Image(unsigned char *data, unsigned int width, unsigned int height);
-
-  /* 不允许拷贝构造和赋值构造，只允许转移 */
-  Image(Image &&);
-  Image(Image &) = delete;
-  Image &operator=(Image &) = delete;
-
-  ~Image();
-};
-
-class Texture {
-public:
-  Texture(const Image &);
-  ~Texture();
-  void use();
-
-  /* 不允许拷贝构造、赋值、转移 */
-  Texture(Texture &&) = delete;
-  Texture(Texture &) = delete;
-  Texture &operator=(Texture &) = delete;
-
-private:
-  unsigned int instance;
-};
-
 } // namespace huigl

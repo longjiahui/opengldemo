@@ -44,7 +44,8 @@ void VAO::useVBO(const VBO &vbo, const vector<VBOUsage> usages) {
   vbo.use();
   for (auto usage : usages) {
     auto index = this->program->getVariableLocation(usage.name);
-    cout << index << usage.length << usage.offset << usage.step << endl;
+    cout << "usage: " << index << " " << usage.length << " " << usage.offset
+         << endl;
     glVertexAttribPointer(index, usage.length, GL_FLOAT, GL_FALSE,
                           totalLength * sizeof(float),
                           (void *)(usage.offset * sizeof(float)));

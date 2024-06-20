@@ -8,9 +8,9 @@ vector<float> Mesh::toBuffer() const {
   // auto buffer = new unsigned char[vertices.size() * 3 * sizeof(float)];
   auto buffer = vector<float>();
   for (auto v : this->vertices) {
-    buffer.push_back(v.x);
-    buffer.push_back(v.y);
-    buffer.push_back(v.z);
+    for (auto d : v) {
+      buffer.push_back(d);
+    }
   }
   return buffer;
 }
