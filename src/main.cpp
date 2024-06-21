@@ -1,7 +1,3 @@
-#include <iostream>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <vector>
 
 #include "lib/glfw.hpp"
@@ -22,7 +18,7 @@ int main(void) {
   auto transformMatrix =
       glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, -1.0f, 0));
   auto p = new huigl::Pipeline("glsl/vertex.glsl", "glsl/frag.glsl");
-  auto texture = huigl::Texture::fromFile("image/image.jpg");
+  auto texture = huigl::Texture::fromFile("image/image.jpg", GL_RGBA);
   p->setTexture(0, "texture1", *texture);
   auto mesh = huigl::Mesh(vector<vector<float>>(
       {{-0.5f, -0.5f, -0.5f, 0.0f, 0.0f}, {0.5f, -0.5f, -0.5f, 1.0f, 0.0f},
@@ -64,7 +60,7 @@ int main(void) {
       true);
   win->setDraw([&](auto win) {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     p->setUniform("time", glfwGetTime());
     p->setUniform(
         "transform",

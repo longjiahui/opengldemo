@@ -3,6 +3,7 @@
 #include <functional>
 #include <iostream>
 #include <memory>
+#include <stdexcept>
 #include <thread>
 using namespace huigl;
 using namespace std;
@@ -39,9 +40,10 @@ void initGlew() {
   glewExperimental = GL_TRUE;
   GLenum err = glewInit();
   if (err != GLEW_OK) {
-    std::cerr << "Error: " << glewGetErrorString(err) << std::endl;
-    glfwTerminate();
+    throw runtime_error("Failed to initialize GLEW: " +
+                        string((char *)glewGetErrorString(err)));
   }
+  glEnable(GL_DEPTH_TEST);
   cout << "current openGL Version: " << glGetString(GL_VERSION) << endl;
   cout << "current GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION)
        << endl;

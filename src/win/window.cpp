@@ -9,10 +9,8 @@ auto Window::_wins = unordered_map<GLFWwindow *, Window *>();
 
 void Window::_init() {
   this->window = shared_ptr<GLFWwindow>(
-      glfwCreateWindow(800, 600, "Window", nullptr, nullptr), [](auto p) {
-        cout << "destruct glfwWindow" << endl;
-        glfwDestroyWindow(p);
-      });
+      glfwCreateWindow(800, 600, "Window", nullptr, nullptr),
+      [](auto p) { glfwDestroyWindow(p); });
   Window::_wins[this->window.get()] = this;
   glfwSetFramebufferSizeCallback(this->window.get(),
                                  [](auto window, auto width, auto height) {

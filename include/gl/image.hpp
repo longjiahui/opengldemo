@@ -2,6 +2,8 @@
 
 #include <memory>
 
+#include "lib/stb_image.hpp"
+
 namespace huigl {
 
 class Image {
@@ -12,7 +14,7 @@ public:
   unsigned char *data;
   unsigned int width;
   unsigned int height;
-  static std::shared_ptr<Image> fromFile(const char *);
+  static std::shared_ptr<Image> fromFile(const char *, int = STBI_default);
   Image();
   Image(unsigned char *data, unsigned int width, unsigned int height);
 

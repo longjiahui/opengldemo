@@ -1,5 +1,5 @@
 #include "gl/image.hpp"
-#include "lib/stb_image.hpp"
+#include "lib/stb_image_implementation.hpp"
 
 using namespace std;
 using namespace huigl;
@@ -11,9 +11,9 @@ void Image::setImage(unsigned char *data, const unsigned int &width,
   this->height = height;
 }
 
-shared_ptr<Image> Image::fromFile(const char *path) {
+shared_ptr<Image> Image::fromFile(const char *path, int mode) {
   int width, height, channels;
-  return make_shared<Image>(stbi_load(path, &width, &height, &channels, 0),
+  return make_shared<Image>(stbi_load(path, &width, &height, &channels, mode),
                             width, height);
 }
 

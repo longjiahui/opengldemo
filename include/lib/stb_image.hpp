@@ -1,2 +1,4 @@
-#define STB_IMAGE_IMPLEMENTATION
+#pragma once
+
+// used in header file
 #include <stb_image.h>

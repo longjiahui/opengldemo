@@ -1,6 +1,6 @@
 #include "gl/texture.hpp"
 #include "lib/glfw.hpp"
-#include <iostream>
+
 using namespace std;
 using namespace huigl;
 
@@ -23,5 +23,7 @@ Texture::Texture(Image const &image, GLenum colorMode) {
 Texture::~Texture() { glDeleteTextures(1, &this->instance); }
 
 shared_ptr<Texture> Texture::fromFile(const char *p, GLenum colorMode) {
-  return make_shared<Texture>(*Image::fromFile(p), colorMode);
+  return make_shared<Texture>(
+      *Image::fromFile(p, colorMode == GL_RGBA ? STBI_rgb_alpha : STBI_rgb),
+      colorMode);
 }

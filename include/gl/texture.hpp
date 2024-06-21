@@ -1,8 +1,8 @@
 #pragma once
 
-#include "image.hpp"
-
 #include "lib/glfw.hpp"
+
+#include "image.hpp"
 
 #include <memory>
 
