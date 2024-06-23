@@ -1,6 +1,8 @@
 #include "gl/mesh.hpp"
 #include "lib/assimp.hpp"
 
+#include <stdexcept>
+
 using namespace huigl;
 using namespace std;
 

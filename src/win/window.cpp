@@ -5,7 +5,7 @@
 using namespace huigl;
 using namespace std;
 
-auto Window::_wins = unordered_map<GLFWwindow *, Window *>();
+unordered_map<GLFWwindow *, Window *> Window::_wins = unordered_map<GLFWwindow *, Window *>();
 
 void Window::_init() {
   this->window = shared_ptr<GLFWwindow>(

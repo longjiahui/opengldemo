@@ -2,6 +2,7 @@
 
 #include "lib/glfw.hpp"
 #include <functional>
+#include <memory>
 #include <string>
 
 namespace huigl {

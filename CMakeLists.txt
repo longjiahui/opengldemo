@@ -1,9 +1,14 @@
 cmake_minimum_required(VERSION 3.24)
+
+set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+  CACHE STRING "Vcpkg toolchain file")
+message(STATUS ${CMAKE_TOOLCHAIN_FILE})
+
 project(demo)
 
+find_package(GLEW REQUIRED)
 find_package(glfw3 REQUIRED)
-find_package(glew REQUIRED)
-find_package(stb REQUIRED)
+find_package(Stb REQUIRED)
 find_package(glm REQUIRED)
 find_package(assimp REQUIRED)
 # lib_cef_dll_wrapper
@@ -11,7 +16,7 @@ find_package(assimp REQUIRED)
 # list(APPEND CMAKE_MODULE_PATH "${CEF_ROOT}/cmake")
 # find_package(CEF REQUIRED)
 # add_subdirectory(./lib/cef/libcef_dll)
-
+message(STATUS )
 add_executable(demo)
 target_sources(demo PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
@@ -41,8 +46,8 @@ target_include_directories(demo PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     glfw
     GLEW::GLEW
-    ${stb_INCLUDE_DIRS}
-    ${glm_INCLUDE_DIRS}
+    ${Stb_INCLUDE_DIR}
+    glm::glm-header-only
     assimp::assimp
 )
 
