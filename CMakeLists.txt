@@ -6,6 +6,8 @@ message(STATUS ${CMAKE_TOOLCHAIN_FILE})
 
 project(demo)
 
+set(CMAKE_CXX_STANDARD 17)
+
 find_package(GLEW REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(Stb REQUIRED)
