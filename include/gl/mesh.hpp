@@ -7,7 +7,7 @@
 #include "gl/glbase.hpp"
 
 namespace huigl {
-class Mesh {
+class GLMesh {
 
 private:
   std::shared_ptr<VBO> vbo;
@@ -16,10 +16,10 @@ private:
   std::vector<unsigned int> indices;
 
 public:
-  static std::shared_ptr<Mesh> fromFile(const char *p);
+  static std::shared_ptr<GLMesh> fromFile(const char *p);
 
-  Mesh(std::vector<std::vector<float>> vertices,
-       std::vector<unsigned int> indices = std::vector<unsigned int>())
+  GLMesh(std::vector<std::vector<float>> vertices,
+         std::vector<unsigned int> indices = std::vector<unsigned int>())
       : vertices(vertices), indices(indices) {}
   //   std::vector<glm::vec3> normals;
   std::vector<float> toBuffer() const;
