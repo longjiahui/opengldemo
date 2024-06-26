@@ -22,7 +22,7 @@ public:
   Pipeline(const char *vp, const char *fp)
       : program(Program::fromFile(vp, fp)) {};
 
-  void useMesh(Mesh &, std::vector<VBOUsage> const &);
+  void useGLMesh(GLMesh &, std::vector<VBOUsage> const &);
 
   void setTexture(unsigned short, const std::string, Texture &);
   void setUniform(const std::string, float);

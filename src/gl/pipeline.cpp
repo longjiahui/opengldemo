@@ -5,7 +5,7 @@ using namespace std;
 
 // const char *vertexName = "vertexPosition";
 
-void Pipeline::useMesh(Mesh &mesh, vector<VBOUsage> const &vboUsages) {
+void Pipeline::useGLMesh(GLMesh &mesh, vector<VBOUsage> const &vboUsages) {
   auto vbo = mesh.getVBO();
   this->ebo = mesh.getEBO();
   this->vao = make_shared<VAO>(this->program);

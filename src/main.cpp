@@ -20,7 +20,7 @@ int main(void) {
   auto p = new huigl::Pipeline("glsl/vertex.glsl", "glsl/frag.glsl");
   auto texture = huigl::Texture::fromFile("image/image.jpg", GL_RGBA);
   p->setTexture(0, "texture1", *texture);
-  auto mesh = huigl::Mesh(vector<vector<float>>(
+  auto glMesh = huigl::GLMesh(vector<vector<float>>(
       {{-0.5f, -0.5f, -0.5f, 0.0f, 0.0f}, {0.5f, -0.5f, -0.5f, 1.0f, 0.0f},
        {0.5f, 0.5f, -0.5f, 1.0f, 1.0f},   {0.5f, 0.5f, -0.5f, 1.0f, 1.0f},
        {-0.5f, 0.5f, -0.5f, 0.0f, 1.0f},  {-0.5f, -0.5f, -0.5f, 0.0f, 0.0f},
@@ -47,8 +47,8 @@ int main(void) {
   // vector<unsigned int>({0,  1,  2,  2,  3,  0,  4,  5,  6,  6,  7,  4,
   //                       8,  9,  10, 10, 11, 8,  12, 13, 14, 14, 15, 12,
   //                       16, 17, 18, 18, 19, 16, 20, 21, 22, 22, 23, 20}));
-  p->useMesh(mesh, vector<huigl::VBOUsage>(
-                       {{"vertexPosition", 0, 3}, {"textureCoord", 3, 2}}));
+  p->useGLMesh(glMesh, vector<huigl::VBOUsage>(
+                           {{"vertexPosition", 0, 3}, {"textureCoord", 3, 2}}));
   win->setResize(
       [&](auto, auto w, auto h) {
         p->setUniform("projection",
