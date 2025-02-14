@@ -4,7 +4,7 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/include/**",
-                "~/.conan2/**/include"
+                "~/.conan2/**/include/**"
             ],
             "compilerPath": "/usr/bin/clang",
             "defines": [],
