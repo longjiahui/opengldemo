@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.24)
 
-set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
-  CACHE STRING "Vcpkg toolchain file")
-message(STATUS ${CMAKE_TOOLCHAIN_FILE})
+# set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+#   CACHE STRING "Vcpkg toolchain file")
+# message(STATUS ${CMAKE_TOOLCHAIN_FILE})
 
 project(demo)
 
@@ -41,16 +41,15 @@ target_link_libraries(demo PUBLIC
     glfw
     GLEW::GLEW
     assimp::assimp
+    glm::glm
 )
 
 target_include_directories(demo PUBLIC
-    # ${CEF_ROOT}
     ${CMAKE_CURRENT_SOURCE_DIR}/include
-    glfw
-    GLEW::GLEW
+    # glfw
+    # GLEW::GLEW
     ${Stb_INCLUDE_DIR}
-    glm::glm-header-only
-    assimp::assimp
+    # assimp::assimp
 )
 
 list(APPEND move_dirs glsl image)
